@@ -1,7 +1,7 @@
 import Stopwatch from "./Stopwatch.js";
 
 class StopwatchWithResults extends Stopwatch {
-  public results: number[] | null[] = [];
+  protected results: string[] = [];
 
   constructor(element: HTMLDivElement) {
     super(element);
@@ -13,22 +13,22 @@ class StopwatchWithResults extends Stopwatch {
     this.dom = {
       resultsList: <HTMLDivElement>element.querySelector(".stopwatch__results"),
       addToListBtn: <HTMLButtonElement>(
-        element.querySelector(".stopwatch__start-add-to-list")
+        element.querySelector(".stopwatch__button.stopwatch__add-to-list-btn")
       ),
       resetListBtn: <HTMLButtonElement>(
-        element.querySelector(".stopwatch__start-reset-list")
+        element.querySelector(".stopwatch__button.stopwatch__reset-list-btn")
       ),
       currentTime: <HTMLDivElement>(
         element.querySelector(".stopwatch__current-time")
       ),
       startBtn: <HTMLButtonElement>(
-        element.querySelector(".stopwatch__button stopwatch__start-btn")
+        element.querySelector(".stopwatch__button.stopwatch__start-btn")
       ),
       stopBtn: <HTMLButtonElement>(
-        element.querySelector(".stopwatch__button stopwatch__stop-btn")
+        element.querySelector(".stopwatch__button.stopwatch__stop-btn")
       ),
       resetBtn: <HTMLButtonElement>(
-        element.querySelector(".stopwatch__button stopwatch__reset-btn")
+        element.querySelector(".stopwatch__button.stopwatch__reset-btn")
       ),
     };
   }
@@ -38,9 +38,8 @@ class StopwatchWithResults extends Stopwatch {
     Funkcja ta powinna dodawać nasłuchwiacze do buttonów this.dom.addToListBtn oraz this.dom.resetListBtn.
     Pierwszy powinien po kliknięciu uruchamiać metodę this.addToList, a druga this.resetList.
     */
-
     this.dom.addToListBtn.addEventListener("click", () => this.addToList());
-    this.dom.removeListBtn.addEventListener("click", () => this.resetList());
+    this.dom.resetListBtn.addEventListener("click", () => this.resetList());
   }
 
   protected renderList(): void {
@@ -54,21 +53,24 @@ class StopwatchWithResults extends Stopwatch {
     this.dom.resultsList.innerHTML = this.results.join(" ");
   }
 
-  private addToList(): void {
+  protected addToList(): void {
     /*
     Funkcja ta powinna pobierać aktualny czas z this.currentTime, formatować go i w takiej postaci zapisywać do tablicy this.results.
     Następnie powinna renderować aktualną listę na stronie (this.renderList).
     */
-    this.formatTime(this.currentTime);
+    const currentTime = this.currentTime;
+    const formattedTime = this.formatTime(currentTime);
+    this.results.push(formattedTime);
     this.renderList();
   }
 
-  private resetList(): void {
+  protected resetList(): void {
     /*
     Funkcja ta powinna czyścić tablicę this.results oraz zawartość this.dom.resultsList
     */
     this.dom.resultsList.innerHTML = "";
     this.results.splice(0);
+    this.renderList();
   }
 }
 

@@ -23,32 +23,39 @@ abstract class Stopwatch {
         element.querySelector(".stopwatch__current-time")
       ),
       startBtn: <HTMLButtonElement>(
-        element.querySelector(".stopwatch__button stopwatch__start-btn")
+        element.querySelector(".stopwatch__button.stopwatch__start-btn")
       ),
       stopBtn: <HTMLButtonElement>(
-        element.querySelector(".stopwatch__button stopwatch__stop-btn")
+        element.querySelector(".stopwatch__button.stopwatch__stop-btn")
       ),
       resetBtn: <HTMLButtonElement>(
-        element.querySelector(".stopwatch__button stopwatch__reset-btn")
+        element.querySelector(".stopwatch__button.stopwatch__reset-btn")
       ),
     };
   }
 
-  private initActions(): void {
-    this.dom.startBtn.addEventListener("click", () => this.start());
-    this.dom.stopBtn.addEventListener("click", () => this.stop());
-    this.dom.resetBtn.addEventListener("click", () => this.reset());
+  public initActions(): void {
+    this.dom.startBtn
+      ? this.dom.startBtn.addEventListener("click", () => this.start())
+      : null;
+    this.dom.stopBtn
+      ? this.dom.stopBtn.addEventListener("click", () => this.stop())
+      : null;
+    this.dom.resetBtn
+      ? this.dom.resetBtn.addEventListener("click", () => this.reset())
+      : null;
   }
 
   protected formatTime(time: number): string {
-    const pad = (num: number): string =>
-      num < 10 ? `0${num}` : num.toString();
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = Math.floor(time % 60);
 
-    const mm = Math.floor(time / 6000);
-    const ss = Math.floor(time - (mm * 6000) / 1000);
-    const ms = time - mm * 6000 - ss * 1000;
+    const formattedHours = hours.toString().padStart(2, "0");
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedSeconds = seconds.toString().padStart(2, "0");
 
-    return `${pad(mm)}:${pad(ss)}:${pad(ms).substr(0, 2)}`;
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
   }
 
   protected renderTime(): void {
@@ -64,7 +71,7 @@ abstract class Stopwatch {
     */
     this.timer = window.setInterval(() => {
       this.step();
-    }, 1000);
+    }, 1);
   }
 
   protected step(): void {
@@ -73,13 +80,13 @@ abstract class Stopwatch {
   }
 
   protected stop(): void {
-    this.timer = window.setInterval(() => {
-      this.currentTime;
-    }, this.currentTime);
+    clearInterval(this.timer);
   }
 
   protected reset(): void {
-    clearInterval(this.currentTime);
+    this.currentTime = 0;
+    this.renderTime();
+    clearInterval(this.timer);
   }
 }
 
