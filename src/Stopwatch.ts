@@ -86,7 +86,6 @@ abstract class Stopwatch {
   protected reset(): void {
     this.currentTime = 0;
     this.renderTime();
-    clearInterval(this.timer);
   }
 }
 
