@@ -63,12 +63,6 @@ abstract class Stopwatch {
   }
 
   protected start(): void {
-    /*
-    Funkcja ta powinna wystartować interwał, który będzie wykonywał się co milisekundę.
-    Powinien on każdorazowo włączać funkcję this.step
-
-    Dla wygody przypisz ten interwał do this.timer
-    */
     this.timer = window.setInterval(() => {
       this.step();
     }, 1);
@@ -80,7 +74,9 @@ abstract class Stopwatch {
   }
 
   protected stop(): void {
-    clearInterval(this.timer);
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
   }
 
   protected reset(): void {

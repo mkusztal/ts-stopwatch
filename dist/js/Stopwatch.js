@@ -39,12 +39,6 @@ class Stopwatch {
         this.dom.currentTime.innerHTML = this.formatTime(this.currentTime);
     }
     start() {
-        /*
-        Funkcja ta powinna wystartować interwał, który będzie wykonywał się co milisekundę.
-        Powinien on każdorazowo włączać funkcję this.step
-    
-        Dla wygody przypisz ten interwał do this.timer
-        */
         this.timer = window.setInterval(() => {
             this.step();
         }, 1);
@@ -54,7 +48,9 @@ class Stopwatch {
         this.renderTime();
     }
     stop() {
-        clearInterval(this.timer);
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
     }
     reset() {
         this.currentTime = 0;
