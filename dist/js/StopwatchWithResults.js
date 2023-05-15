@@ -20,21 +20,27 @@ class StopwatchWithResults extends Stopwatch {
     prepareActions() {
         this.dom.addToListBtn.addEventListener("click", () => this.addToList());
         this.dom.resetListBtn.addEventListener("click", () => this.resetList());
+        this.dom.resultsList.innerHTML = "Results...";
     }
     renderList() {
         this.dom.resultsList.innerHTML = "";
-        this.dom.resultsList.innerHTML = this.results.join(" ");
+        this.dom.resultsList.innerHTML = this.results.join("<br>");
     }
     addToList() {
-        const currentTime = this.currentTime;
-        const formattedTime = this.formatTime(currentTime);
-        this.results.push(formattedTime);
-        this.renderList();
+        if (this.currentTime === 0) {
+            this.dom.resultsList.innerHTML = "First start timer!";
+        }
+        else {
+            const currentTime = this.currentTime;
+            const formattedTime = this.formatTime(currentTime);
+            this.results.push(formattedTime);
+            this.renderList();
+        }
     }
     resetList() {
-        this.dom.resultsList.innerHTML = "";
         this.results.splice(0);
-        this.renderList();
+        this.dom.resultsList.innerHTML = "No results!";
+        // this.renderList();
     }
 }
 export default StopwatchWithResults;

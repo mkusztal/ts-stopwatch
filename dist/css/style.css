@@ -54,7 +54,7 @@ body {
   padding: 0;
 }
 .stopwatch__results ul li {
-  padding: 1rem;
+  padding: 0;
   border-bottom: 1px dashed rgba(105, 127, 238, 0.25);
 }
 
