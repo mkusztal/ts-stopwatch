@@ -8,7 +8,7 @@ class StopwatchWithResults extends Stopwatch {
     }
     prepareElements(element) {
         this.dom = {
-            resultsList: element.querySelector(".stopwatch__results"),
+            resultsList: (element.querySelector(".stopwatch__results .result_list")),
             addToListBtn: (element.querySelector(".stopwatch__button.stopwatch__add-to-list-btn")),
             resetListBtn: (element.querySelector(".stopwatch__button.stopwatch__reset-list-btn")),
             currentTime: (element.querySelector(".stopwatch__current-time")),
@@ -20,7 +20,8 @@ class StopwatchWithResults extends Stopwatch {
     prepareActions() {
         this.dom.addToListBtn.addEventListener("click", () => this.addToList());
         this.dom.resetListBtn.addEventListener("click", () => this.resetList());
-        this.dom.resultsList.innerHTML = "Results...";
+        // this.dom.resultsList.innerHTML = "Results...";
+        console.log("resultList: ", this.dom.resultsList);
     }
     renderList() {
         this.dom.resultsList.innerHTML = "";
@@ -40,7 +41,6 @@ class StopwatchWithResults extends Stopwatch {
     resetList() {
         this.results.splice(0);
         this.dom.resultsList.innerHTML = "No results!";
-        // this.renderList();
     }
 }
 export default StopwatchWithResults;
