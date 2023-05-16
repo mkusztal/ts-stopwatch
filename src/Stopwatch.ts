@@ -63,7 +63,9 @@ abstract class Stopwatch {
   }
 
   protected start(): void {
-    this.dom.startBtn.disabled = true;
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
     this.timer = window.setInterval(() => {
       this.step();
     }, 1);
@@ -75,7 +77,6 @@ abstract class Stopwatch {
   }
 
   protected stop(): void {
-    this.dom.startBtn.disabled = false;
     if (this.timer) {
       clearInterval(this.timer);
     }

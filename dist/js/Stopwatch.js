@@ -39,7 +39,9 @@ class Stopwatch {
         this.dom.currentTime.innerHTML = this.formatTime(this.currentTime);
     }
     start() {
-        this.dom.startBtn.disabled = true;
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
         this.timer = window.setInterval(() => {
             this.step();
         }, 1);
@@ -49,7 +51,6 @@ class Stopwatch {
         this.renderTime();
     }
     stop() {
-        this.dom.startBtn.disabled = false;
         if (this.timer) {
             clearInterval(this.timer);
         }
