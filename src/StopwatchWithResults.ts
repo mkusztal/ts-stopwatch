@@ -61,6 +61,7 @@ class StopwatchWithResults extends Stopwatch {
   protected resetList(): void {
     this.results.splice(0);
     this.dom.resultsList.innerHTML = "No results!";
+    // this.renderList();
   }
 }
 
