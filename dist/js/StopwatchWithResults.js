@@ -20,8 +20,6 @@ class StopwatchWithResults extends Stopwatch {
     prepareActions() {
         this.dom.addToListBtn.addEventListener("click", () => this.addToList());
         this.dom.resetListBtn.addEventListener("click", () => this.resetList());
-        // this.dom.resultsList.innerHTML = "Results...";
-        console.log("resultList: ", this.dom.resultsList);
     }
     renderList() {
         this.dom.resultsList.innerHTML = "";
