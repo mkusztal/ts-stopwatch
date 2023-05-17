@@ -39,12 +39,11 @@ class Stopwatch {
         this.dom.currentTime.innerHTML = this.formatTime(this.currentTime);
     }
     start() {
-        if (this.timer) {
-            clearInterval(this.timer);
+        if (!this.timer) {
+            this.timer = window.setInterval(() => {
+                this.step();
+            }, 1);
         }
-        this.timer = window.setInterval(() => {
-            this.step();
-        }, 1);
     }
     step() {
         this.currentTime += 1;
@@ -53,6 +52,7 @@ class Stopwatch {
     stop() {
         if (this.timer) {
             clearInterval(this.timer);
+            this.timer = null;
         }
     }
     reset() {

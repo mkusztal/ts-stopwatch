@@ -63,12 +63,11 @@ abstract class Stopwatch {
   }
 
   protected start(): void {
-    if (this.timer) {
-      clearInterval(this.timer);
+    if (!this.timer) {
+      this.timer = window.setInterval(() => {
+        this.step();
+      }, 1);
     }
-    this.timer = window.setInterval(() => {
-      this.step();
-    }, 1);
   }
 
   protected step(): void {
@@ -79,6 +78,7 @@ abstract class Stopwatch {
   protected stop(): void {
     if (this.timer) {
       clearInterval(this.timer);
+      this.timer = null;
     }
   }
 
