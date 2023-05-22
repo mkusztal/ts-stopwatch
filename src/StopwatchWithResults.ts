@@ -1,4 +1,5 @@
 import Stopwatch from "./Stopwatch.js";
+import { deprecated } from "./deprecated";
 
 class StopwatchWithResults extends Stopwatch {
   protected results: string[] = [];
@@ -45,6 +46,7 @@ class StopwatchWithResults extends Stopwatch {
     this.dom.resultsList.innerHTML = this.results.join("<br>");
   }
 
+  @deprecated
   protected addToList(): void {
     if (this.currentTime === 0) {
       this.dom.resultsList.innerHTML = "First start timer!";
@@ -56,10 +58,15 @@ class StopwatchWithResults extends Stopwatch {
     }
   }
 
+  @deprecated
   protected resetList(): void {
     this.results.splice(0);
     this.dom.resultsList.innerHTML = "No results!";
     // this.renderList();
+  }
+
+  public getByParam(param: "name" | "age" | "gender") {
+    console.log(param);
   }
 }
 
