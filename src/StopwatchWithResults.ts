@@ -1,5 +1,5 @@
 import Stopwatch from "./Stopwatch.js";
-import { deprecated } from "./deprecated";
+import { deprecated } from "./deprecated.js";
 
 class StopwatchWithResults extends Stopwatch {
   protected results: string[] = [];
@@ -41,6 +41,7 @@ class StopwatchWithResults extends Stopwatch {
     this.dom.resetListBtn.addEventListener("click", () => this.resetList());
   }
 
+  @deprecated
   protected renderList(): void {
     this.dom.resultsList.innerHTML = "";
     this.dom.resultsList.innerHTML = this.results.join("<br>");
